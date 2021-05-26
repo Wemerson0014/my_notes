@@ -1,5 +1,6 @@
 package com.estudo.mynotes.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.estudo.mynotes.R
 import com.estudo.mynotes.databinding.ActivityMainBinding
 import com.estudo.mynotes.model.Note
+import com.estudo.mynotes.ui.detail.NoteDetail
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +35,15 @@ class MainActivity : AppCompatActivity() {
         )
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_notes)
-        recyclerView.adapter = NotesAdapter(notes)
+        recyclerView.adapter = NotesAdapter(notes) { note ->
+            val intent = Intent(this, NoteDetail::class.java)
+            intent.putExtra(KEY_NOTE, note)
+            startActivity(intent)
+        }
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    companion object {
+        const val KEY_NOTE = "Note"
     }
 }
