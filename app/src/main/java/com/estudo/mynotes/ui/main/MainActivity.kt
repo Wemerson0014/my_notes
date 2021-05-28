@@ -1,12 +1,15 @@
 package com.estudo.mynotes.ui.main
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.estudo.mynotes.R
 import com.estudo.mynotes.databinding.ActivityMainBinding
+import com.estudo.mynotes.databinding.AddNoteBinding
 import com.estudo.mynotes.model.Note
 import com.estudo.mynotes.ui.detail.NoteDetail
 
@@ -20,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupRecyclerView()
+        insertNote()
     }
 
     private fun setupRecyclerView() {
@@ -41,6 +45,28 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun insertNote() {
+        binding.fabAdd.setOnClickListener {
+            createDialog()
+        }
+    }
+
+    private fun createDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+        val binding = AddNoteBinding.inflate(layoutInflater)
+        alertDialog.setTitle(getString(R.string.dialog_title))
+        alertDialog.setView(binding.root)
+
+        alertDialog.setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
+            Toast.makeText(this, "Insert a note", Toast.LENGTH_SHORT).show()
+        }
+
+        alertDialog.setNegativeButton(getString(R.string.dialog_negative_button)) { _, _ ->
+        }
+
+        alertDialog.show()
     }
 
     companion object {

@@ -3,4 +3,10 @@
 
     <!-- activity_main -->
     <string name="fab_add_description">Add a note</string>
+
+    <!-- dialog resources -->
+    <string name="dialog_title">Fast note</string>
+    <string name="dialog_hint">Insert a name for your note</string>
+    <string name="dialog_positive_button">Add</string>
+    <string name="dialog_negative_button">Cancel</string>
 </resources>
