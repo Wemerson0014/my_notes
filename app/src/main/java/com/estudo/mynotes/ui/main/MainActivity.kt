@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupRecyclerView()
-        insertNote()
+        setAddListener()
     }
 
     private fun setupRecyclerView() {
@@ -47,26 +47,22 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun insertNote() {
+    private fun setAddListener() {
         binding.fabAdd.setOnClickListener {
-            createDialog()
+            showInsertNoteDialog()
         }
     }
 
-    private fun createDialog() {
-        val alertDialog = AlertDialog.Builder(this)
+    private fun showInsertNoteDialog() {
         val binding = AddNoteBinding.inflate(layoutInflater)
-        alertDialog.setTitle(getString(R.string.dialog_title))
-        alertDialog.setView(binding.root)
-
-        alertDialog.setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
-            Toast.makeText(this, "Insert a note", Toast.LENGTH_SHORT).show()
-        }
-
-        alertDialog.setNegativeButton(getString(R.string.dialog_negative_button)) { _, _ ->
-        }
-
-        alertDialog.show()
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.dialog_title))
+            .setView(binding.root)
+            .setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
+                Toast.makeText(this, "Insert a note", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton(getString(R.string.dialog_negative_button)) { _, _ -> }
+            .show()
     }
 
     companion object {
