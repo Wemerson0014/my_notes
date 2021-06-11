@@ -11,7 +11,6 @@ import com.estudo.mynotes.data.database.NoteDatabase
 import com.estudo.mynotes.data.repository.NoteRepository
 import com.estudo.mynotes.databinding.ActivityMainBinding
 import com.estudo.mynotes.databinding.AddNoteBinding
-import com.estudo.mynotes.model.Note
 import com.estudo.mynotes.ui.detail.NoteDetail
 
 class MainActivity : AppCompatActivity() {
@@ -38,24 +37,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        val notes = mutableListOf(
-            Note("Estudar Kotlin", "Olhar material para estudos", "24/05/2021"),
-            Note("Estudar MVVM", "Estudar sobre a arquitetura", "19/05/2021"),
-            Note(
-                "Escrever novo capítulo",
-                "Avaliar a história e escrever novo capítulo",
-                "22/05/2021"
-            ),
-            Note("Pegar a bicicleta", "Verificar freio e calibragem dos pneus", "15/05/2021")
-        )
-
         val recyclerView = binding.recyclerNotes
-        recyclerView.adapter = NotesAdapter(notes) { note ->
-            val intent = Intent(this, NoteDetail::class.java)
-            intent.putExtra(KEY_NOTE, note)
-            startActivity(intent)
+
+        mainViewModel.showAllNotes.observe(this) {
+            recyclerView.adapter = NotesAdapter(it.toMutableList()) { note ->
+                val intent = Intent(this, NoteDetail::class.java)
+                intent.putExtra(KEY_NOTE, note)
+                startActivity(intent)
+            }
+            recyclerView.layoutManager = LinearLayoutManager(this)
         }
-        recyclerView.layoutManager = LinearLayoutManager(this)
+
     }
 
     private fun setAddListener() {
