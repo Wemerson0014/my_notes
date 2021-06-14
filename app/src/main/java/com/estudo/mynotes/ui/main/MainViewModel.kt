@@ -1,13 +1,13 @@
 package com.estudo.mynotes.ui.main
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.estudo.mynotes.data.repository.NoteRepository
 import com.estudo.mynotes.model.Note
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
+
+    val showAllNotes: LiveData<List<Note>> = noteRepository.allNotes.asLiveData()
 
     fun saveNote(title: String) {
         val note = Note(title, "Description", "04/06/2021")
