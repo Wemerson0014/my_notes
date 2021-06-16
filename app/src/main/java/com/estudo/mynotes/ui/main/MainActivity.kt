@@ -11,7 +11,7 @@ import com.estudo.mynotes.data.database.NoteDatabase
 import com.estudo.mynotes.data.repository.NoteRepository
 import com.estudo.mynotes.databinding.ActivityMainBinding
 import com.estudo.mynotes.databinding.AddNoteBinding
-import com.estudo.mynotes.ui.detail.NoteDetail
+import com.estudo.mynotes.ui.detail.NoteDetailActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,8 +32,13 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this, viewModelFactory)
             .get(MainViewModel::class.java)
 
+        setupToolbar()
         setupRecyclerView()
         setAddListener()
+    }
+
+    private fun setupToolbar() {
+        setSupportActionBar(binding.toolbar)
     }
 
     private fun setupRecyclerView() {
@@ -41,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.showAllNotes.observe(this) {
             recyclerView.adapter = NotesAdapter(it.toMutableList()) { note ->
-                val intent = Intent(this, NoteDetail::class.java)
+                val intent = Intent(this, NoteDetailActivity::class.java)
                 intent.putExtra(KEY_NOTE, note)
                 startActivity(intent)
             }
