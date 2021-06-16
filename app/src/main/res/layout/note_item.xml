@@ -32,9 +32,19 @@
             android:layout_margin="8dp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/noteTitle"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/noteIconDelete"
             app:layout_constraintTop_toTopOf="@id/noteTitle"
             tools:text="24/05/2021" />
+
+        <ImageView
+            android:id="@+id/noteIconDelete"
+            android:layout_width="16dp"
+            android:layout_height="20dp"
+            android:contentDescription="@string/img_delete_content_description"
+            android:src="@drawable/ic_baseline_delete_forever_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/noteDate"
+            app:layout_constraintTop_toTopOf="@id/noteDate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

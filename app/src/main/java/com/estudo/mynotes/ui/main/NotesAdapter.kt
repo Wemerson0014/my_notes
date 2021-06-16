@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.estudo.mynotes.databinding.NoteItemBinding
 import com.estudo.mynotes.model.Note
 
-class NotesAdapter(private val notes: MutableList<Note>, private val onClickItem: (Note) -> Unit) :
+class NotesAdapter(private val notes: MutableList<Note>, private val onClickItem: (Note) -> Unit, private val onDeleteItem: (Note) -> Unit) :
     RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
 
    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
@@ -29,7 +29,9 @@ class NotesAdapter(private val notes: MutableList<Note>, private val onClickItem
             binding.root.setOnClickListener {
                 onClickItem(note)
             }
+            binding.noteIconDelete.setOnClickListener {
+                onDeleteItem(note)
+            }
         }
     }
 }
-
