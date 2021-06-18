@@ -11,6 +11,7 @@ import com.estudo.mynotes.data.database.NoteDatabase
 import com.estudo.mynotes.data.repository.NoteRepository
 import com.estudo.mynotes.databinding.ActivityMainBinding
 import com.estudo.mynotes.databinding.AddNoteBinding
+import com.estudo.mynotes.model.Note
 import com.estudo.mynotes.ui.detail.NoteDetailActivity
 
 class MainActivity : AppCompatActivity() {
@@ -45,11 +46,15 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = binding.recyclerNotes
 
         mainViewModel.showAllNotes.observe(this) {
-            recyclerView.adapter = NotesAdapter(it.toMutableList()) { note ->
-                val intent = Intent(this, NoteDetailActivity::class.java)
-                intent.putExtra(KEY_NOTE, note)
-                startActivity(intent)
-            }
+            recyclerView.adapter = NotesAdapter(notes = it.toMutableList(),
+                onClickItem = { note ->
+                    val intent = Intent(this, NoteDetailActivity::class.java)
+                    intent.putExtra(KEY_NOTE, note)
+                    startActivity(intent)
+                },
+                onDeleteItem = { note ->
+                    showDeleteNoteDialog(note)
+                })
             recyclerView.layoutManager = LinearLayoutManager(this)
         }
 
@@ -64,12 +69,23 @@ class MainActivity : AppCompatActivity() {
     private fun showInsertNoteDialog() {
         val binding = AddNoteBinding.inflate(layoutInflater)
         AlertDialog.Builder(this)
-            .setTitle(getString(R.string.dialog_title))
+            .setTitle(getString(R.string.dialog_insert_title))
             .setView(binding.root)
-            .setPositiveButton(getString(R.string.dialog_positive_button)) { _, _ ->
+            .setPositiveButton(getString(R.string.add)) { _, _ ->
                 mainViewModel.saveNote(binding.editAddNote.text.toString())
             }
-            .setNegativeButton(getString(R.string.dialog_negative_button)) { _, _ -> }
+            .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
+            .show()
+    }
+
+    private fun showDeleteNoteDialog(note: Note) {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.delete))
+            .setMessage(getString(R.string.delete_message_dialog))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                mainViewModel.deleteNote(note)
+            }
+            .setNegativeButton(getString(R.string.no)) { _, _  -> }
             .show()
     }
 

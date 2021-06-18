@@ -1,12 +1,23 @@
 <resources>
     <string name="app_name">My Notes</string>
 
+    <!-- commons_strings -->
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+
     <!-- activity_main -->
     <string name="fab_add_description">Add a note</string>
 
-    <!-- dialog resources -->
-    <string name="dialog_title">Fast note</string>
-    <string name="dialog_hint">Insert a name for your note</string>
-    <string name="dialog_positive_button">Add</string>
-    <string name="dialog_negative_button">Cancel</string>
+    <!-- dialog_insert -->
+    <string name="dialog_insert_title">Fast note</string>
+    <string name="dialog_insert_hint">Insert a name for your note</string>
+
+    <!-- note_item -->
+    <string name="img_delete_content_description">Delete this note</string>
+
+    <!-- delete_dialog -->
+    <string name="delete_message_dialog">Are you sure you want to delete this note?</string>
 </resources>

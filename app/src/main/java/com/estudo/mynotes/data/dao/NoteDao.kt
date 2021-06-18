@@ -1,6 +1,7 @@
 package com.estudo.mynotes.data.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.estudo.mynotes.data.entities.NoteEntity
@@ -15,4 +16,7 @@ interface NoteDao {
 
     @Query("SELECT * FROM note")
     fun getAllNotes(): Flow<List<Note>>
+
+    @Delete
+    suspend fun delete(note: NoteEntity)
 }
