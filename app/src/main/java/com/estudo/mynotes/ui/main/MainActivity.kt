@@ -11,6 +11,7 @@ import com.estudo.mynotes.data.database.NoteDatabase
 import com.estudo.mynotes.data.repository.NoteRepository
 import com.estudo.mynotes.databinding.ActivityMainBinding
 import com.estudo.mynotes.databinding.AddNoteBinding
+import com.estudo.mynotes.model.Note
 import com.estudo.mynotes.ui.detail.NoteDetailActivity
 
 class MainActivity : AppCompatActivity() {
@@ -51,8 +52,8 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra(KEY_NOTE, note)
                     startActivity(intent)
                 },
-                onDeleteItem = {
-                    showDeleteNoteDialog()
+                onDeleteItem = { note ->
+                    showDeleteNoteDialog(note)
                 })
             recyclerView.layoutManager = LinearLayoutManager(this)
         }
@@ -77,16 +78,15 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun showDeleteNoteDialog() {
+    private fun showDeleteNoteDialog(note: Note) {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.delete))
             .setMessage(getString(R.string.delete_message_dialog))
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
-
+                mainViewModel.deleteNote(note)
             }
             .setNegativeButton(getString(R.string.no)) { _, _  -> }
             .show()
-
     }
 
     companion object {
