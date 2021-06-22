@@ -1,9 +1,6 @@
 package com.estudo.mynotes.data.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.estudo.mynotes.data.entities.NoteEntity
 import com.estudo.mynotes.model.Note
 import kotlinx.coroutines.flow.Flow
@@ -19,4 +16,7 @@ interface NoteDao {
 
     @Delete
     suspend fun delete(note: NoteEntity)
+
+    @Query("UPDATE note SET title = :title, description = :description WHERE id == :id")
+    suspend fun update(id: Long, title: String, description: String)
 }

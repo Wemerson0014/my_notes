@@ -11,16 +11,26 @@ class NoteRepository(private val noteDao: NoteDao) {
 
     suspend fun insertNote(note: Note) {
         val noteEntity = NoteEntity(
-                title = note.title,
-                description = note.description,
-                date = note.date
+            title = note.title,
+            description = note.description,
+            date = note.date
         )
 
         noteDao.insert(noteEntity)
     }
 
     suspend fun deleteNote(note: Note) {
-        val noteEntity = NoteEntity(id = note.id, title = note.title, description = note.description, date = note.date)
+        val noteEntity = NoteEntity(
+            id = note.id,
+            title = note.title,
+            description = note.description,
+            date = note.date
+        )
+
         noteDao.delete(noteEntity)
+    }
+
+    suspend fun updateNote(note: Note) {
+        noteDao.update(note.id, note.title, note.description)
     }
 }
