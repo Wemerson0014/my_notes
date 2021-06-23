@@ -7,9 +7,13 @@
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="save">save</string>
 
     <!-- activity_main -->
     <string name="fab_add_description">Add a note</string>
+
+    <!-- activity_note_detail -->
+    <string name="edit_description_hint">A note with your description here</string>
 
     <!-- dialog_insert -->
     <string name="dialog_insert_title">Fast note</string>

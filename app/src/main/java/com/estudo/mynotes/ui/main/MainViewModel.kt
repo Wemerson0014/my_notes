@@ -10,7 +10,7 @@ class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
     val showAllNotes: LiveData<List<Note>> = noteRepository.allNotes.asLiveData()
 
     fun saveNote(title: String) {
-        val note = Note(title = title, description = "Description", date = "04/06/2021")
+        val note = Note(title = title, description = "", date = "04/06/2021")
         viewModelScope.launch {
             noteRepository.insertNote(note)
         }
