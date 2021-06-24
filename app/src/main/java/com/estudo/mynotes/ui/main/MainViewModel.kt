@@ -4,13 +4,15 @@ import androidx.lifecycle.*
 import com.estudo.mynotes.data.repository.NoteRepository
 import com.estudo.mynotes.model.Note
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
 
     val showAllNotes: LiveData<List<Note>> = noteRepository.allNotes.asLiveData()
 
     fun saveNote(title: String) {
-        val note = Note(title = title, description = "", date = "04/06/2021")
+        val note = Note(title = title, description = "", date = getDate())
         viewModelScope.launch {
             noteRepository.insertNote(note)
         }
@@ -20,6 +22,12 @@ class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
         viewModelScope.launch {
             noteRepository.deleteNote(note)
         }
+    }
+
+    private fun getDate(): String {
+        val date = Calendar.getInstance().time
+        val dateTimeFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        return dateTimeFormat.format(date)
     }
 }
 
