@@ -5,6 +5,7 @@ import com.estudo.mynotes.data.repository.NoteRepository
 import com.estudo.mynotes.model.Note
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
@@ -26,7 +27,7 @@ class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
 
     private fun getDate(): String {
         val date = Calendar.getInstance().time
-        val dateTimeFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val dateTimeFormat = SimpleDateFormat("dd/MMMM/yyyy", Locale.getDefault())
         return dateTimeFormat.format(date)
     }
 }
