@@ -8,6 +8,7 @@
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="save">save</string>
+    <string name="search">Search…</string>
 
     <!-- activity_main -->
     <string name="fab_add_description">Add a note</string>

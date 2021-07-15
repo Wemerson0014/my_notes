@@ -1,5 +1,6 @@
 package com.estudo.mynotes.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.estudo.mynotes.data.entities.NoteEntity
 import com.estudo.mynotes.model.Note
@@ -19,4 +20,7 @@ interface NoteDao {
 
     @Query("UPDATE note SET title = :title, description = :description WHERE id == :id")
     suspend fun update(id: Long, title: String, description: String)
+
+    @Query("SELECT * FROM note WHERE title LIKE '%'||:searchQuery||'%'")
+    fun getSearchResults(searchQuery: String): LiveData<List<Note>>
 }

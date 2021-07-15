@@ -1,5 +1,7 @@
 package com.estudo.mynotes.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.room.Query
 import com.estudo.mynotes.data.dao.NoteDao
 import com.estudo.mynotes.data.entities.NoteEntity
 import com.estudo.mynotes.model.Note
@@ -32,5 +34,9 @@ class NoteRepository(private val noteDao: NoteDao) {
 
     suspend fun updateNote(note: Note) {
         noteDao.update(note.id, note.title, note.description)
+    }
+
+    fun search(searchQuery: String): LiveData<List<Note>> {
+        return noteDao.getSearchResults(searchQuery)
     }
 }

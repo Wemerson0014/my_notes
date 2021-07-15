@@ -3,6 +3,7 @@ package com.estudo.mynotes.ui.main
 import androidx.lifecycle.*
 import com.estudo.mynotes.data.repository.NoteRepository
 import com.estudo.mynotes.model.Note
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -11,6 +12,7 @@ import java.util.*
 class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
 
     val showAllNotes: LiveData<List<Note>> = noteRepository.allNotes.asLiveData()
+    lateinit var searchNote: LiveData<List<Note>>
 
     fun saveNote(title: String) {
         val note = Note(title = title, description = "", date = getDate())
@@ -23,6 +25,10 @@ class MainViewModel(private val noteRepository: NoteRepository) : ViewModel() {
         viewModelScope.launch {
             noteRepository.deleteNote(note)
         }
+    }
+
+    fun searchForItems(query: String): LiveData<List<Note>> {
+        return noteRepository.search(query)
     }
 
     private fun getDate(): String {
